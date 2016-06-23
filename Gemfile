@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'react_webpack_rails'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'haml'
 
 group :development, :test do
   gem 'pry-rails'
