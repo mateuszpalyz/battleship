@@ -1,0 +1,2 @@
+class SeaController < ApplicationController
+end
