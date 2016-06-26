@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'react_webpack_rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'haml'
+gem 'redis', '~>3.2'
 
 group :development, :test do
   gem 'pry-rails'
