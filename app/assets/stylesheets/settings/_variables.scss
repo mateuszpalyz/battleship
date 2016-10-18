@@ -1,0 +1,32 @@
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-sm-max: ($screen-md-min - 1);
+$screen-md-max: ($screen-lg-min - 1);
+
+$white: #fff;
+$green: #42f48c;
+$dark-brown: #3a3632;
+$grey: #efebe6;
+$transparent: rgba(255, 255, 255, 0);
+
+$border-radius-base: 5px;
+
+$fs-0: 13px;
+$fs-01: 14px;
+$fs-1: 16px;
+$fs-2: 18px;
+$fs-3: 20px;
+$fs-4: 25px;
+$fs-5: 30px;
+$fs-6: 40px;
+$fs-7: 50px;
+
+$fw-regular: 400;
