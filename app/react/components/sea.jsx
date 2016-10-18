@@ -83,24 +83,20 @@ export default class Sea extends React.Component {
     return (
       <div>
         <GameStatus status={this.state.status}/>
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='game'>
-              { this.state.tiles.map(function(tile, position) {
-                return(
-                  <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileClick} />
-                );
-              }, this) }
-            </div>
+        <div className='game-container'>
+          <div className='board'>
+            { this.state.tiles.map(function(tile, position) {
+              return(
+                <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileClick} />
+              );
+            }, this) }
           </div>
-          <div className='col-md-6'>
-            <div className='game'>
-              { this.state.tilesForOpponent.map(function(tile, position) {
-                return(
-                  <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileBlackClick} />
-                );
-              }, this) }
-            </div>
+          <div className='board'>
+            { this.state.tilesForOpponent.map(function(tile, position) {
+              return(
+                <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileBlackClick} />
+              );
+            }, this) }
           </div>
         </div>
       </div>

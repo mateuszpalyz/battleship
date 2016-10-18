@@ -9,7 +9,7 @@ export default class GameStatus extends React.Component {
     const wait_info = (<span>waiting for second player</span>);
     const play_info = (<span>fight arrr!!!</span>);
     return(
-      <div>
+      <div className='game-status'>
         <p>Game Status: {this.props.status == 'waiting' ? wait_info : play_info}</p>
       </div>
     );
