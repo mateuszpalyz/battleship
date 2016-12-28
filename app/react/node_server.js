@@ -1,38 +1,49 @@
-global.__RWR_ENV__ = {};
 require('babel-core/register');
-const IM = require('react-webpack-rails').integrationsManager;
 require('./index');
 
+const fs = require('fs');
+const path = require('path');
 const http = require('http');
 const dispatcher = require('httpdispatcher');
-const PORT = 8081;
+const { integrationsManager } = require('react-webpack-rails');
 
-function handleRequest(request, response){
-  try {
-    console.log(`started: ${request.method} "${request.url}" at ${new Date().toLocaleTimeString()}`);
-    dispatcher.dispatch(request, response);
-  } catch(ex) {
-    console.log(ex)
-    response.writeHead(500);
-    response.end(ex.name + ': ' + ex.message);
-  }
+const PORT = 8081;
+const ASSETS_MAPPING_PATH = 'tmp/cache/assets-mapping.json';
+
+global.__RWR_ENV__ = {};
+global.__RWR_VIEW_HELPERS__ = { imagePaths: {} };
+
+fs.readFile(ASSETS_MAPPING_PATH, (err, data) => {
+  if (err) { return err; }
+  const imagePaths = data.toString('utf-8');
+  global.__RWR_VIEW_HELPERS__.imagePaths = JSON.parse(imagePaths);
+});
+
+const handleRequest = (req, res) => {
+  const { method, url } = req;
+  const reqStartTime = (new Date()).toLocaleTimeString();
+
+  console.log(`${method} "${url}" - ${reqStartTime}`);
+  dispatcher.dispatch(req, res);
 }
 
-dispatcher.onPost("/run", function(request, response) {
+dispatcher.onPost('/run', (req, res) => {
   try {
-    const data = JSON.parse(request.body);
-    const result = IM.runNodeIntegration(data);
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end(result);
-  } catch(ex) {
-    console.log(ex)
-    response.writeHead(500);
-    response.end("nodeRun failed:\n" + ex.name + ': ' + ex.message);
+    const data = JSON.parse(req.body);
+    const result = integrationsManager.runNodeIntegration(data);
+
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end(result);
+  } catch(e) {
+    console.error(e);
+
+    res.writeHead(500);
+    res.end(`nodeRun failed:\n ${e.name}: ${e.message}`);
   }
 });
 
-const server = http.createServer(handleRequest);
-
-server.listen(PORT, function(){
-  console.log("Server listening on: http://localhost:%s", PORT);
-});
+http
+  .createServer(handleRequest)
+  .listen(PORT, () => {
+    console.log(`Server listening on: http://localhost:${PORT}`)
+  });

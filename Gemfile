@@ -29,3 +29,4 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+gem 'rwr-view_helpers', '~> 0.1.1'
