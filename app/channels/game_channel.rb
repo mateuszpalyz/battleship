@@ -9,10 +9,10 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def send_tiles(data)
-    puts data.to_s
+    Game.set_tiles(uuid, data['tiles'])
   end
 
-  def shoot(data)
-    Game.make_move(uuid, data)
+  def shot(data)
+    Game.shot(uuid, data['tile'])
   end
 end
