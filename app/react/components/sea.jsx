@@ -56,6 +56,9 @@ export default class Sea extends React.Component {
     case 'game_start':
       this.onGameStart();
       break;
+    case 'game_end':
+      console.log('end');
+      break;
     }
   }
 
@@ -66,6 +69,7 @@ export default class Sea extends React.Component {
   }
 
   onTileClick(position, player) {
+    GameEmitter.sendShot(position);
     const tiles = this.state.tiles;
     if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
     if (tiles[position] === 'S') tiles[position] = 'X';
