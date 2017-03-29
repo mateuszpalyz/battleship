@@ -10,7 +10,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'react_webpack_rails'
 gem 'haml'
-gem 'redis', '~>3.2'
 gem 'font-awesome-sass'
 
 group :development, :test do

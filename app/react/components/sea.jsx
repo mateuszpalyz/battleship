@@ -1,7 +1,6 @@
 import React from 'react';
 import GameStatus from './game_status'
 import Tile from './tile'
-import GameEmitter from './../subscribers/game-emitter';
 
 export default class Sea extends React.Component {
   constructor(props) {
@@ -25,12 +24,6 @@ export default class Sea extends React.Component {
       tilesForOpponent: board.slice(),
       status: 'waiting'
     };
-
-    App.cable.subscriptions.create('GameChannel', {
-      connected: this.onConnect,
-      disconnected: this.onDisconnect,
-      received: this.onReceive,
-    })
   }
 
   shuffleTiles(tiles) {
@@ -64,12 +57,10 @@ export default class Sea extends React.Component {
 
   onGameStart() {
     console.log('game started');
-    GameEmitter.sendTiles(this.state.tiles)
     this.setState({status: 'playing'});
   }
 
   onTileClick(position, player) {
-    GameEmitter.sendShot(position);
     const tiles = this.state.tiles;
     if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
     if (tiles[position] === 'S') tiles[position] = 'X';

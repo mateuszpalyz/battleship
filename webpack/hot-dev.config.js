@@ -6,11 +6,11 @@ jsxLoader.loaders.unshift('react-hot');
 var scssLoader = config.module.loaders.filter(function(loader) { return loader.key == 'style' })[0]
 scssLoader.loader = 'style!css!sass!';
 
-config.output.publicPath = 'http://localhost:3000/assets/'
+config.output.publicPath = 'http://localhost:3001/assets/'
 
 config.entry.main.push(
   'webpack/hot/only-dev-server',
-  'webpack-dev-server/client?http://localhost:3000'
+  'webpack-dev-server/client?http://localhost:3001'
 )
 
 module.exports = config;
