@@ -1,16 +1,19 @@
 import React from 'react';
-import GameStatus from './game_status'
-import Tile from './tile'
+import GameStatus from './game_status';
+import Tile from './tile';
+import Firebase from 'firebase';
 
 export default class Sea extends React.Component {
   constructor(props) {
     super(props);
-    this.onReceive = this.onReceive.bind(this);
-    this.onConnect = this.onConnect.bind(this);
-    this.onDisconnect = this.onDisconnect.bind(this);
-    this.onGameStart = this.onGameStart.bind(this);
+    Firebase.initializeApp(props.firebase_config);
+    this.auth = Firebase.auth();
+    this.database = Firebase.database();
+    this.auth.signInAnonymously();
+    this.gamesRef = this.database.ref('/games');
     this.onTileClick = this.onTileClick.bind(this);
     this.onTileBlackClick = this.onTileBlackClick.bind(this);
+    this.matchPlayers();
 
     const board = [
       '', '', '', '',
@@ -26,6 +29,23 @@ export default class Sea extends React.Component {
     };
   }
 
+  matchPlayers() {
+    this.gamesRef.limitToLast(1).once('child_added').then((snapshot) => {
+      if (snapshot.val().player2 != null) {
+        let newGame = this.gamesRef.push({ player1: this.auth.currentUser.uid });
+        this.player2Ref = this.database.ref(`games/${newGame.key}/player2`);
+        this.player2Ref.on('value', (snapshot)=> {
+          if (snapshot.val() != null) this.setState({ status: 'started' });
+        });
+      } else {
+        this.setState({ status: 'started' });
+        var updates = {}
+        updates[snapshot.key] = { player1: snapshot.val().player1, player2: this.auth.currentUser.uid };
+        this.gamesRef.update(updates);
+      }
+    });
+  }
+
   shuffleTiles(tiles) {
     for (var i = tiles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -34,30 +54,6 @@ export default class Sea extends React.Component {
       tiles[j] = temp;
     }
     return tiles;
-  }
-
-  onConnect() {
-    console.log('connected');
-  }
-
-  onDisconnect() {
-    console.log('disconnected');
-  }
-
-  onReceive(data) {
-    switch(data.action) {
-    case 'game_start':
-      this.onGameStart();
-      break;
-    case 'game_end':
-      console.log('end');
-      break;
-    }
-  }
-
-  onGameStart() {
-    console.log('game started');
-    this.setState({status: 'playing'});
   }
 
   onTileClick(position, player) {
