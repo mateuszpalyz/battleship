@@ -57,17 +57,25 @@ export default class Sea extends React.Component {
   }
 
   onTileClick(position, player) {
-    const tiles = this.state.tiles;
-    if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
-    if (tiles[position] === 'S') tiles[position] = 'X';
-    this.setState({tiles: tiles, turn: player === 'I' ? 'X' : 'O'});
+    if (this.state.status === 'waiting') {
+      alert('Game has not started yet!')
+    } else {
+      const tiles = this.state.tiles;
+      if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
+      if (tiles[position] === 'S') tiles[position] = 'X';
+      this.setState({tiles: tiles, turn: player === 'I' ? 'X' : 'O'});
+    }
   }
 
   onTileBlackClick(position, player) {
-    const tiles = this.state.tilesForOpponent;
-    if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
-    if (tiles[position] === 'S') tiles[position] = 'X';
-    this.setState({tiles: tiles, turn: player === 'I' ? 'X' : 'O'});
+    if (this.state.status === 'waiting') {
+      alert('Game has not started yet!')
+    } else {
+      const tiles = this.state.tilesForOpponent;
+      if ( (tiles[position] === 'X' || tiles[position] === 'I') ) return;
+      if (tiles[position] === 'S') tiles[position] = 'X';
+      this.setState({tiles: tiles, turn: player === 'I' ? 'X' : 'O'});
+    }
   }
 
   render() {
