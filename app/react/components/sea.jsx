@@ -126,26 +126,37 @@ export default class Sea extends React.Component {
   }
 
   render() {
+    const game = (
+      <div className='game-container'>
+        <div className='board'>
+          { this.state.tiles.map(function(tile, position) {
+            return(
+              <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileClick} />
+            );
+          }, this) }
+        </div>
+        <div className='board'>
+          { this.state.tilesForOpponent.map(function(tile, position) {
+            return(
+              <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileBlackClick} />
+            );
+          }, this) }
+        </div>
+      </div>
+    );
+    const wonInfo = (
+      <div className='end-game-info'>Game won!!!</div>
+    );
+    const lostInfo = (
+      <div className='end-game-info'>Game lost</div>
+    );
     return (
       <div>
         <GameStatus status={this.state.status}/>
         <TurnIndicator turn={this.state.turn} player={this.state.player}/>
-        <div className='game-container'>
-          <div className='board'>
-            { this.state.tiles.map(function(tile, position) {
-              return(
-                <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileClick} />
-              );
-            }, this) }
-          </div>
-          <div className='board'>
-            { this.state.tilesForOpponent.map(function(tile, position) {
-              return(
-                <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileBlackClick} />
-              );
-            }, this) }
-          </div>
-        </div>
+        {this.state.status !== 'won' && this.state.status !== 'lost' ? game : ''}
+        {this.state.status === 'won' ? wonInfo : ''}
+        {this.state.status === 'lost' ? lostInfo : ''}
       </div>
     );
   }
