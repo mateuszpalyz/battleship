@@ -5,6 +5,7 @@
     "eslint": "^2.13.0",
     "eslint-plugin-react": "^5.2.0",
     "expect": "^1.20.0",
+    "jest-cli": "^19.0.2",
     "karma": "^1.1.0",
     "karma-chrome-launcher": "^1.0.0",
     "karma-mocha": "^1.1.0",
@@ -45,7 +46,7 @@
     "rwr-node-server": "forever -o log/rwr-server-out.log -e log/rwr-server-err.log forever/production.json",
     "start": "webpack -w --config webpack/dev.config.js",
     "start-hot-dev": "webpack-dev-server --hot --inline --config webpack/hot-dev.config.js",
-    "test": "karma start"
+    "test": "jest"
   },
   "license": "",
   "engines": {
