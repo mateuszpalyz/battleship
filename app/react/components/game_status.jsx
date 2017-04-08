@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class GameStatus extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const wait_info = (<span>waiting for second player</span>);
     const play_info = (<span>fight arrr!!!</span>);
