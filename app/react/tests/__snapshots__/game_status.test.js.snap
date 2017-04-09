@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component displays started info for started status 1`] = `
+<div
+  className="game-status"
+>
+  <p>
+    Game Status: 
+    <span>
+      fight arrr!!!
+    </span>
+  </p>
+</div>
+`;
+
+exports[`Component displays waiting info for waiting status 1`] = `
+<div
+  className="game-status"
+>
+  <p>
+    Game Status: 
+    <span>
+      waiting for second player
+    </span>
+  </p>
+</div>
+`;

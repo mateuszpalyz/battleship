@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component displays opponent when it is opponents turn 1`] = `
+<div
+  className="game-status"
+>
+  <p>
+    Now shooting: 
+    Opponent
+  </p>
+</div>
+`;
+
+exports[`Component displays player when it is players turn 1`] = `
+<div
+  className="game-status"
+>
+  <p>
+    Now shooting: 
+    You
+  </p>
+</div>
+`;
