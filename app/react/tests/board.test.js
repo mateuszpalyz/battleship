@@ -8,3 +8,12 @@ test('returns array with four ships at the end of it', ()=> {
     'S', 'S', 'S', 'S'
   ]);
 });
+
+test('returns empty array of tiles', ()=> {
+  expect(board.emptyLayout()).toEqual([
+    '', '', '', '',
+    '', '', '', '',
+    '', '', '', '',
+    '', '', '', ''
+  ]);
+});
