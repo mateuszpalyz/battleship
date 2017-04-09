@@ -75,7 +75,7 @@ export default class Sea extends React.Component {
     this.checkIfLost();
   }
 
-  onTileBlackClick(position, player) {
+  onTileBlackClick(position) {
     if (this.state.status === 'waiting') {
       alert('Game has not started yet!');
       return;
