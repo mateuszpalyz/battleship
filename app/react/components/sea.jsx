@@ -13,7 +13,7 @@ export default class Sea extends React.Component {
     this.database = Firebase.database();
     this.auth.signInAnonymously();
     this.gamesRef = this.database.ref('/games');
-    this.onTileBlackClick = this.onTileBlackClick.bind(this);
+    this.onOpponentTileClick = this.onOpponentTileClick.bind(this);
     this.matchPlayers();
 
     this.state = {
@@ -75,7 +75,7 @@ export default class Sea extends React.Component {
     this.checkIfLost();
   }
 
-  onTileBlackClick(position) {
+  onOpponentTileClick(position) {
     if (this.state.status === 'waiting') {
       alert('Game has not started yet!');
       return;
@@ -138,7 +138,7 @@ export default class Sea extends React.Component {
         <div className='board'>
           { this.state.tilesForOpponent.map(function(tile, position) {
             return(
-              <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onTileBlackClick} />
+              <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onOpponentTileClick} />
             );
           }, this) }
         </div>
