@@ -29,7 +29,9 @@ export default class Sea extends React.Component {
         let newGame = this.gamesRef.push({ player1: this.auth.currentUser.uid });
         let player2Ref = this.database.ref(`games/${newGame.key}/player2`);
         player2Ref.on('value', (snapshot)=> {
-          if (snapshot.val() != null) this.setState({ status: 'started' });
+          if (snapshot.val() != null && this.state.status === 'waiting') {
+            this.setState({ status: 'started' });
+          }
         });
         player2Ref.on('child_added', (snapshot)=> {
           this.updateMyTiles(snapshot.val());
@@ -71,8 +73,8 @@ export default class Sea extends React.Component {
     } else {
       tiles[position] = 'O';
     }
-    this.setState({tiles: tiles, turn: this.state.player});
     this.checkIfLost();
+    this.setState({tiles: tiles, turn: this.state.player});
   }
 
   onOpponentTileClick(position) {
@@ -106,12 +108,11 @@ export default class Sea extends React.Component {
   }
 
   checkIfLost() {
-    let sunkenShips = this.state.tiles.filter((t) => {
+    let sunkenShips = (this.state.tiles.filter((t) => {
       return t === 'X';
-    }).length
+    })).length
     if (sunkenShips === 4) {
       this.setState({status: 'lost'});
-      alert('You lose :(');
     }
   }
 
@@ -121,7 +122,6 @@ export default class Sea extends React.Component {
     }).length
     if (sunkenShips === 4) {
       this.setState({status: 'won'});
-      alert('You win :)');
     }
   }
 
@@ -154,7 +154,7 @@ export default class Sea extends React.Component {
       <div>
         <GameStatus status={this.state.status}/>
         <TurnIndicator turn={this.state.turn} player={this.state.player}/>
-        {this.state.status !== 'won' && this.state.status !== 'lost' ? game : ''}
+        {this.state.status === 'started' ? game : ''}
         {this.state.status === 'won' ? wonInfo : ''}
         {this.state.status === 'lost' ? lostInfo : ''}
       </div>
