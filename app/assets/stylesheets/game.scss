@@ -1,3 +1,7 @@
+p {
+  color: $almost-white;
+}
+
 .game-status {
   padding: 0 80px 0 80px;
 
@@ -9,7 +13,7 @@
 
 .top {
   background-color: $dark-grey;
-  color: $milka;
+  color: $red;
   font-size: $fs-6;
   height: 120px;
   line-height: 120px;
@@ -28,7 +32,6 @@
 }
 
 .board {
-  background-color: $white;
   display: flex;
   flex-wrap: wrap;
   height: 400px;
@@ -51,13 +54,20 @@
     height: 200px;
     width: 200px;
   }
+
+  &--opponent {
+    cursor: pointer;
+  }
+
+  &--inactive {
+    cursor: default;
+  }
 }
 
 .tile {
   font-size: $fs-7;
   height: 100px;
   line-height: 88px;
-  outline: 1px solid #b4b4b4;
   text-align: center;
   width: 100px;
 
@@ -69,8 +79,65 @@
   }
 }
 
+.dot {
+  background-color: $grey;
+  border-radius: 50%;
+  height: 7px;
+  left: 50%;
+  position: relative;
+  top: 50%;
+  width: 7px;
+
+  &--almost-white {
+    background-color: $almost-white;
+  }
+
+  &--red {
+    background-color: $red;
+  }
+
+  &--almost-black {
+    background-color: $almost-black;
+  }
+
+  &--animated {
+    -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
+    animation: pulsate-bck 0.5s ease-in-out infinite both;
+    -webkit-animation-iteration-count: 3;
+  }
+}
+
 .end-game-info {
-  color: $milka;
+  color: $red;
   font-size: $fs-7;
   text-align: center;
+}
+
+@-webkit-keyframes pulsate-bck {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate-bck {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }

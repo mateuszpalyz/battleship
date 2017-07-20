@@ -135,7 +135,7 @@ export default class Sea extends React.Component {
             );
           }, this) }
         </div>
-        <div className='board'>
+        <div className={'board board--opponent ' + (this.state.turn == this.state.player ? '' : 'board--inactive')}>
           { this.state.tilesForOpponent.map(function(tile, position) {
             return(
               <Tile status={tile} key={position} position={position} turn={this.state.turn} onTileClick={this.onOpponentTileClick} />

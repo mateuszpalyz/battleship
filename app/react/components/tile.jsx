@@ -1,5 +1,11 @@
 import React from 'react';
 
+var styleMapping = {
+  S: 'dot--almost-white',
+  X: 'dot--red dot--animated',
+  O: 'dot--almost-black dot--animated'
+};
+
 export default class Tile extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +20,7 @@ export default class Tile extends React.Component {
   render() {
     return(
       <div className={this.props.status === '' ? 'tile' : 'tile status-' + this.props.status} onClick={this.onTileClick}>
-        {this.props.status}
+        <div className={'dot ' + styleMapping[this.props.status]}></div>
       </div>
     );
   }
